@@ -1,8 +1,11 @@
 packages:
-  - 'packages/*'
-  - 'apps/*'
+  - packages/*
+  - apps/*
+  - libs/*
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
-  - 'esbuild'
-  - 'less'
-  - 'sharp'
+  - esbuild
+  - less
+  - sharp
+  - unrs-resolver

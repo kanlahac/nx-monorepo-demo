@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/main-app"
+    },
+    {
+      "path": "./libs/popups"
     }
   ]
 }
