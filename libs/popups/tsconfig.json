@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".", 
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "files": [],
   "include": [],

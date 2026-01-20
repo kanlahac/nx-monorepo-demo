@@ -4,7 +4,7 @@ import { memo } from "react";
 import { useThemeStore } from "../definitions/stores/themes-store";
 
 function Themes() {
-    const THEMES = [
+    const Themes = [
         "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", 
         "synthwave", "retro", "cyberpunk", "valentine", "halloween", 
         "garden", "forest", "aqua", "lofi", "pastel", "fantasy", 
@@ -19,7 +19,7 @@ function Themes() {
         <div className="w-full h-full flex items-center justify-center">
             <div className="flex flex-wrap gap-2 p-2 justify-between">
                 {
-                    THEMES.map((item, index) => (
+                    Themes.map((item, index) => (
                         <input
                             key={index}
                             type="radio"
