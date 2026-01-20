@@ -4,57 +4,25 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "noEmit": true,
-    "emitDeclarationOnly": false,
-    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": ["./src/*"],
-      "@libs/popups": ["../../libs/popups/src/index.ts"]
-    },
-    "types": ["jest", "node"],
-    "outDir": "dist",
-    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
-    "rootDirs": ["src", "../../libs"],
+      "@libs/popups": ["../../libs/popups/src/index.ts"] // Important
+    }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.js",
     "src/**/*.jsx",
-    "../../libs/popups/src/**/*.ts",
-    "../../libs/popups/src/**/*.tsx",
-    "../../apps/main-app/.next/types/**/*.ts",
-    "../../dist/apps/main-app/.next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "out-tsc",
-    "dist",
-    "node_modules",
-    "jest.config.ts",
-    "jest.config.cts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    ".next",
-    "eslint.config.js",
-    "eslint.config.cjs",
-    "eslint.config.mjs"
-  ],
+  "exclude": ["node_modules"],
   "references": [
     {
-      "path": "../../libs/popups"
+      "path": "../../libs/popups" // Maybe remove this, remove the build warning
     }
   ]
 }

@@ -6,8 +6,13 @@
     "importHelpers": true,
     "isolatedModules": true,
     "lib": ["es2022"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    // "module": "nodenext",
+    // "moduleResolution": "nodenext",
+
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
@@ -18,7 +23,7 @@
     "target": "es2022",
     "customConditions": ["@org/source"],
     "paths": {
-      "@libs/popups": ["libs/popups/src"]
+      "@libs/popups": ["libs/popups/src/index.ts"],
     }
   }
 }

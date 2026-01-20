@@ -1,0 +1,42 @@
+import { useShallow } from "zustand/react/shallow";
+import { usePopupStore } from "./popup-store";
+
+export const usePopup = () => {
+
+    const { instances, layout } = usePopupStore(
+        useShallow((state) => ({
+            instances: state.instances,
+            layout: state.layout,
+        }))
+    );
+
+    const addPopup = usePopupStore((state) => state.addPopup);
+    const closePopup = usePopupStore((state) => state.closePopup);
+    const maximizePopup = usePopupStore((state) => state.maximizePopup);
+    const minimizePopup = usePopupStore((state) => state.minimizePopup);
+    const splitPopup = usePopupStore((state) => state.splitPopup);
+    const closeAll = usePopupStore((state) => state.closeAll);
+    const maximizeAll = usePopupStore((state) => state.maximizeAll);
+    const minimizeAll = usePopupStore((state) => state.minimizeAll);
+    const splitAll = usePopupStore((state) => state.splitAll);
+    const updateLayout = usePopupStore((state) => state.updateLayout);
+
+    return {
+        instances, 
+        layout, 
+        addPopup, 
+        closePopup,
+        maximizePopup,
+        minimizePopup,
+        splitPopup, 
+        closeAll,
+        maximizeAll,
+        minimizeAll,
+        splitAll,
+        updateLayout 
+    };
+};
+
+
+
+

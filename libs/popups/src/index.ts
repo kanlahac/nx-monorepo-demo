@@ -1,1 +1,2 @@
-export * from './lib/popups';
+export * from './lib/usePopup';
+export * from './lib/popups-provider';
