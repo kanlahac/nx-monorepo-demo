@@ -1,3 +1,5 @@
+"use client"
+
 import { useShallow } from "zustand/react/shallow";
 import { usePopupStore } from "./popup-store";
 
@@ -36,7 +38,3 @@ export const usePopup = () => {
         updateLayout 
     };
 };
-
-
-
-

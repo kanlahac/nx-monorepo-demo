@@ -9,7 +9,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@libs/popups": ["../../libs/popups/src/index.ts"] // Important
-    }
+    },
+    "lib": ["dom", "dom.iterable", "esnext"] // Add dom
   },
   "include": [
     "src/**/*.ts",

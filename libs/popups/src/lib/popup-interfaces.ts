@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
+
 import { ReactNode } from "react";
 
 export interface PopupInstance {

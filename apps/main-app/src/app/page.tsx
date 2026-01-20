@@ -1,12 +1,16 @@
 "use client"
 
-import { OrgPopups } from "@libs/popups";
+import Dock from "@/components/shared/dock";
+import { PopupsProvider } from "@libs/popups";
+
 
 export default function Index() {
+    return (
+        <main className="h-screen">
 
-  return (
-    <div>
-      <OrgPopups />
-    </div>
-  );
+            <Dock />
+            <PopupsProvider />
+
+        </main>
+    );
 }
