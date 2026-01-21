@@ -18,7 +18,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  
+
   // CI/CD
   basePath: process.env.NODE_ENV === 'production' ? '/nx-monorepo-demo' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/nx-monorepo-demo/' : '',

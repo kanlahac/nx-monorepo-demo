@@ -54,7 +54,7 @@ jobs:
         if: steps.build_step.outputs.built == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/apps/main-app/out
+          path: ./apps/main-app/.next/out
 
       - name: Deploy to GitHub Pages
         if: steps.build_step.outputs.built == 'true'
