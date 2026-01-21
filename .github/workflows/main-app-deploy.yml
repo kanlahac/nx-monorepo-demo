@@ -1,0 +1,62 @@
+name: Main App deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Tests (Affected)
+        run: npx nx affected --target=test --base=origin/main~1 --head=origin/main
+
+      - name: Build SPA
+        id: build_step
+        run: |
+          if npx nx show projects --affected --base=origin/main~1 | grep -q "main-app"; then
+            npx nx build main-app
+            echo "built=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes in main-app or dependencies. Skipping build."
+            echo "built=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Pages
+        if: steps.build_step.outputs.built == 'true'
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        if: steps.build_step.outputs.built == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/apps/main-app/out
+
+      - name: Deploy to GitHub Pages
+        if: steps.build_step.outputs.built == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4

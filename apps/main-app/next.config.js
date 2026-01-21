@@ -11,6 +11,17 @@ const nextConfig = {
   // See: https://nx.dev/recipes/next/next-config-setup
   transpilePackages: ['@libs/popups'],
   nx: {},
+
+  //SPA config
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  
+  // CI/CD
+  basePath: process.env.NODE_ENV === 'production' ? '/nx-monorepo-demo' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/nx-monorepo-demo/' : '',
 };
 
 const plugins = [
