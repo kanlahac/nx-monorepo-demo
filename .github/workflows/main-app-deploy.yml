@@ -50,11 +50,11 @@ jobs:
         if: steps.build_step.outputs.built == 'true'
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Upload
         if: steps.build_step.outputs.built == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./apps/main-app/.next/out
+          path: ./apps/main-app/out
 
       - name: Deploy to GitHub Pages
         if: steps.build_step.outputs.built == 'true'
