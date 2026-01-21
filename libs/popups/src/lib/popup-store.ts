@@ -12,7 +12,7 @@ export const usePopupStore = create<GridState>((set) => ({
 
         return {
             instances: [...state.instances, { ...newPopup, id: id }],
-            layout: [...state.layout, { i: id, x: 0, y: 0, w: 3, h: 4, static: false }]
+            layout: [...state.layout, { i: id, x: 0, y: 0, w: 3, h: 4, static: false, minW: 3, minH: 4 }]
         }
     }),
 
@@ -24,7 +24,7 @@ export const usePopupStore = create<GridState>((set) => ({
     maximizePopup: (id) => set((state) => ({
         layout: state.layout.map((item) => {
             if (item.i === id) {
-                return { ...item, x:0, y: 0, w: 12, h:7 };
+                return { ...item, x:0, y: 0, w: 12, h:7, minW: 3, minH: 4 };
             }
             
             return item;
@@ -34,7 +34,7 @@ export const usePopupStore = create<GridState>((set) => ({
     minimizePopup: (id) => set((state) => ({
         layout: state.layout.map((item) => {
             if (item.i === id) {
-                return { ...item, x:0, y: 0, w: 3, h:4 };
+                return { ...item, x:0, y: 0, w: 3, h:4, minW: 3, minH: 4 };
             }
             
             return item;
@@ -44,7 +44,7 @@ export const usePopupStore = create<GridState>((set) => ({
     splitPopup: (id) => set((state) => ({
         layout: state.layout.map((item) => {
             if (item.i === id) {
-                return { ...item, x:0, y: 0, w: 6, h:7 };
+                return { ...item, x:0, y: 0, w: 6, h:7, minW: 3, minH: 4 };
             }
             
             return item;
@@ -55,19 +55,19 @@ export const usePopupStore = create<GridState>((set) => ({
 
     maximizeAll: () => set((state) => ({
         layout: state.layout.map((item) => {
-            return { ...item, x:0, y: 0, w: 12, h:7 };
+            return { ...item, x:0, y: 0, w: 12, h:7, minW: 3, minH: 4 };
         })
     })),
 
     minimizeAll: () => set((state) => ({
         layout: state.layout.map((item) => {
-            return { ...item, x:0, y: 0, w: 3, h:4 };
+            return { ...item, x:0, y: 0, w: 3, h:4, minW: 3, minH: 4 };
         })
     })),
 
     splitAll: () => set((state) => ({
         layout: state.layout.map((item) => {
-            return { ...item, x:0, y: 0, w: 6, h:7 };
+            return { ...item, x:0, y: 0, w: 6, h:7, minW: 3, minH: 4 };
         })
     })),
 
