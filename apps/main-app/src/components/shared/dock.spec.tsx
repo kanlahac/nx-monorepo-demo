@@ -1,22 +1,16 @@
-// import { render } from '@testing-library/react';
-
-// import Dock from './dock';
-
-// describe('Dock', () => {
-//   it('should render successfully', () => {
-//     const { baseElement } = render(<Dock />);
-//     expect(baseElement).toBeTruthy();
-//   });
-// });
-
 import { render, screen, fireEvent } from '@testing-library/react';
 import Dock from './dock';
 import { usePopup } from '@libs/popups';
 
-// 1. Mock the usePopup hook from your NX library
+
 jest.mock('@libs/popups', () => ({
   usePopup: jest.fn()
 }));
+
+jest.mock('next/dynamic', () => () => {
+  const DynamicComponent = () => <div data-testid="dynamic-mock" />;
+  return DynamicComponent;
+});
 
 describe('Dock Component', () => {
   const mockAddPopup = jest.fn();
@@ -28,7 +22,6 @@ describe('Dock Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     
-    // 2. Provide mock implementations for the hook
     (usePopup as jest.Mock).mockReturnValue({
       addPopup: mockAddPopup,
       closeAll: mockCloseAll,
@@ -38,33 +31,24 @@ describe('Dock Component', () => {
     });
   });
 
-  it('should render all main dock buttons', () => {
+  it('should call addPopup when clicking "Add person"', () => {
     render(<Dock />);
     
-    expect(screen.getByText(/Add person/i)).toBeDefined();
-    expect(screen.getByText(/Check List/i)).toBeDefined();
-    expect(screen.getByText(/Change theme/i)).toBeDefined();
-    expect(screen.getByText(/Tools/i)).toBeDefined();
-  });
-
-  it('should call addPopup with "Add new person" configuration when clicked', () => {
-    render(<Dock />);
-    
-    const addButton = screen.getByText(/Add person/i);
-    fireEvent.click(addButton);
+    const addButton = screen.getByText(/Add person/i).closest('button');
+    if (addButton) fireEvent.click(addButton);
 
     expect(mockAddPopup).toHaveBeenCalledWith(
       expect.objectContaining({
-        title: 'Add new person',
+        title: 'Add person',
       })
     );
   });
 
-  it('should call addPopup with "Check person list" configuration when clicked', () => {
+  it('should call addPopup with "Check person list" when clicked', () => {
     render(<Dock />);
     
-    const listButton = screen.getByText(/Check List/i);
-    fireEvent.click(listButton);
+    const listButton = screen.getByText(/Check List/i).closest('button');
+    if (listButton) fireEvent.click(listButton);
 
     expect(mockAddPopup).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -73,7 +57,7 @@ describe('Dock Component', () => {
     );
   });
 
-  it('should call tools functions (Close all) when clicked in the dropdown', () => {
+  it('should call closeAll when "Close all" button is clicked', () => {
     render(<Dock />);
     
     const closeAllBtn = screen.getByText(/Close all/i);
@@ -82,12 +66,12 @@ describe('Dock Component', () => {
     expect(mockCloseAll).toHaveBeenCalled();
   });
 
-  it('should call maximizeAll when the maximize button is clicked', () => {
+  it('should call splitAll when "Split all" button is clicked', () => {
     render(<Dock />);
     
-    const maximizeBtn = screen.getByText(/Maximize all/i);
-    fireEvent.click(maximizeBtn);
+    const splitBtn = screen.getByText(/Split all/i);
+    fireEvent.click(splitBtn);
 
-    expect(mockMaximizeAll).toHaveBeenCalled();
+    expect(mockSplitAll).toHaveBeenCalled();
   });
 });

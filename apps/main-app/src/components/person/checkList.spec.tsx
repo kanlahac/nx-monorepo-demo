@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import CheckList from './checkList';
 import { usePersonStore } from '../definitions/stores/person-store';
 
-// Mock the Zustand store
 jest.mock('../definitions/stores/person-store', () => ({
     usePersonStore: jest.fn()
 }));
@@ -18,7 +17,6 @@ describe('CheckList Component', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
-        // Setup the store state for these tests
         (usePersonStore as unknown as jest.Mock).mockReturnValue({
             list: mockPeople,
             removePerson: mockRemovePerson,
@@ -26,35 +24,30 @@ describe('CheckList Component', () => {
         });
     });
 
-    it('should render the table headers correctly', () => {
-        render(<CheckList />);
-        
-        expect(screen.getByText('Name')).toBeDefined();
-        expect(screen.getByText('Job')).toBeDefined();
-        expect(screen.getByText('Favorite Color')).toBeDefined();
-    });
-
-    it('should render the list of people from the store', () => {
+    it('should render the list of people with their details', () => {
         render(<CheckList />);
 
         expect(screen.getByText('John Doe')).toBeDefined();
         expect(screen.getByText('Jane Smith')).toBeDefined();
         expect(screen.getByText('Developer')).toBeDefined();
         expect(screen.getByText('Designer')).toBeDefined();
+        expect(screen.getByText('Blue')).toBeDefined();
+        expect(screen.getByText('Pink')).toBeDefined();
     });
 
-    it('should call removePerson with correct ID when delete button is clicked', () => {
+    it('should format the index correctly (01, 02)', () => {
+        render(<CheckList />);
+        
+        expect(screen.getByText('01')).toBeDefined();
+        expect(screen.getByText('02')).toBeDefined();
+    });
+
+    it('should call removePerson with correct ID when a specific delete button is clicked', () => {
         render(<CheckList />);
 
-        // Get all individual delete buttons (the ones inside the table rows)
-        // The first button in the component is "Delete all", so we skip that one or find by row
-        const rows = screen.getAllByRole('row');
-        // row[0] is header, row[1] is John Doe
-        const firstRowDeleteBtn = rows[1].querySelector('button');
-
-        if (firstRowDeleteBtn) {
-            fireEvent.click(firstRowDeleteBtn);
-        }
+        const deleteButtons = screen.getAllByRole('button');
+        // El botón [0] es "Delete all", el [1] es el de John Doe
+        fireEvent.click(deleteButtons[1]);
 
         expect(mockRemovePerson).toHaveBeenCalledWith('1');
     });
@@ -62,22 +55,22 @@ describe('CheckList Component', () => {
     it('should call removeAll when the "Delete all" button is clicked', () => {
         render(<CheckList />);
 
-        const deleteAllBtn = screen.getByRole('button', { name: /delete all/i });
+        const deleteAllBtn = screen.getByText(/Delete all/i);
         fireEvent.click(deleteAllBtn);
 
         expect(mockRemoveAll).toHaveBeenCalled();
     });
 
-    it('should show an empty table body when the list is empty', () => {
+    it('should show empty state message when the list is empty', () => {
         (usePersonStore as unknown as jest.Mock).mockReturnValue({
             list: [],
             removePerson: mockRemovePerson,
             removeAll: mockRemoveAll
         });
 
-        const { container } = render(<CheckList />);
-        const tableBodyRows = container.querySelectorAll('tbody tr');
+        render(<CheckList />);
         
-        expect(tableBodyRows.length).toBe(0);
+        expect(screen.getByText(/No persons/i)).toBeDefined();
+        expect(screen.getByText(/Click in Add person on the dock/i)).toBeDefined();
     });
 });
