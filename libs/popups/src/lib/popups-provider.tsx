@@ -1,20 +1,43 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { FaArrowDown, FaRegWindowClose, FaWindowMinimize } from "react-icons/fa";
+import { FaArrowDown, FaCheckCircle, FaRegWindowClose, FaWindowMinimize } from "react-icons/fa";
 import { PiSplitHorizontal } from "react-icons/pi";
 import { TbMaximize } from "react-icons/tb";
+import { MdCancel } from "react-icons/md";
 import { usePopup } from "./usePopup";
 import { WidthProvider, Responsive } from "react-grid-layout/legacy";
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export const PopupsProvider = () => {
-    const { instances, layout, updateLayout, closePopup, maximizePopup, splitPopup, minimizePopup } = usePopup();
+    const { 
+        instances, 
+        layout,
+        gridMode,
+        setInFront,
+        setGridMode,
+        updateLayout, 
+        closePopup,
+        maximizePopup, 
+        splitPopup, 
+        minimizePopup 
+    } = usePopup();
 
     return (
-        <div className="relative min-h-full w-full bg-base-200 overflow-x-hidden p-10 pb-25">
+        <div className="relative min-h-full w-full bg-base-200 overflow-x-hidden px-10 py-25">
+            
+            <div className="fixed z-10 opacity-60 top-5 text-center">
+                <h5 className="font-bold">Grid mode</h5>
+
+                <label className="toggle text-base-content mt-2">
+                    <input type="checkbox" checked={gridMode} onChange={(e: any) => setGridMode(e.currentTarget.checked)} />
+                    <FaCheckCircle />
+                    <MdCancel />
+                </label>
+            </div>
 
             {
                 instances.length === 0 
@@ -27,24 +50,28 @@ export const PopupsProvider = () => {
                     </div>
                 )
                 :
-                (
+                ( 
                     <ResponsiveGridLayout 
                         layouts={{ lg: layout, md: layout, sm: layout }}
                         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
                         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+                        margin={[20, 20]}
                         resizeHandles={['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne']}
                         draggableHandle=".handle"
                         className="layout"
-                        compactType="horizontal"
-                        measureBeforeMount={false}
-                        allowOverlap={false}
+                        measureBeforeMount={true}
+                        allowOverlap={gridMode}
+                        compactType={!gridMode ? "horizontal" : null}
                         onLayoutChange={(current) => {
                             if (current) updateLayout(current);
+                        }}
+                        onDragStart={(layout, oldItem, newItem) => {
+                            if (oldItem) setInFront(oldItem.i);
                         }}
                     >
                         {
                             instances.map((popup) => (
-                                <div key={popup.id}>
+                                <div key={popup.id} className={popup.isInFront ? "z-1 shadow shadow-primary" : "z-0 shadown"} onClick={() => setInFront(popup.id)}>
                                     <div className="card bg-base-300 w-full h-full flex flex-col shadow-lg overflow-hidden">
                                         <div className="card-body">
 

@@ -18,7 +18,7 @@ export function CheckList() {
                 (
                     <div className="flex flex-col gap-6 items-center justify-center h-full">
                         <h1 className="text-4xl font-bold opacity-30">No persons</h1>
-                        <h2 className="opacity-30">Select Add person from the dock</h2>
+                        <h2 className="opacity-30">Click in Add person on the dock</h2>
                         <FaRegFaceSadTear className="text-5xl opacity-20"/>
                     </div>
                 )
@@ -33,44 +33,31 @@ export function CheckList() {
                             Delete all
                         </button>
 
-                        <div className="overflow-x-auto w-full">
-                            <table className="table">
+                        <ul className="bg-base-100 rounded-box shadow-md w-full max-w-100">   
+                            {
+                                list.map((item, index) => (
+                                    <li key={index} className="flex flex-wrap p-3 gap-4 items-center border-1 border-base-content/10">
 
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Job</th>
-                                        <th>Favorite Color</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
+                                        <div className="flex justify-center shrink-0 text-4xl font-thin opacity-30 tabular-nums text-center">
+                                            { (index + 1).toString().padStart(2, '0') }
+                                        </div>
 
-                                <tbody>
-                                    {   
-                                        
-                                        list.map((item, index) => (
-                                            <tr key={item.id}>
-                                                <th>{ index + 1 }</th>
-                                                <td>{ item.name }</td>
-                                                <td>{ item.job }</td>
-                                                <td>{ item.color }</td>
-                                                <td>
-                                                    <button
-                                                        className="btn btn-soft btn-error"
-                                                        onClick={() => removePerson(item.id)}
-                                                    >
-                                                        <IoIosRemoveCircleOutline className="text-xl" />
-                                                    </button>
-                                                    
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
+                                        <div className="flex-grow shrink">
+                                            <div className="text-lg font-bold capitalize">{ item.name }</div>
+                                            <div className="text-xs capitalize font-semibold opacity-30">{ item.job }</div>
+                                            <div className="text-xs capitalize opacity-30">{ item.color }</div>
+                                        </div>
 
-                            </table>
-                        </div>
+                                        <div className="flex justify-center sm:justify-end flex-grow">
+                                            <button className="btn btn-square btn-soft btn-error" onClick={() => removePerson(item.id)}>
+                                                <IoIosRemoveCircleOutline className="text-xl text-center" />
+                                            </button>
+                                        </div>
+
+                                    </li>
+                                ))
+                            }                           
+                        </ul>
                     </>
                 )
             }

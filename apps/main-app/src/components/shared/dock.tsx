@@ -34,12 +34,12 @@ export function Dock() {
     const { addPopup, closeAll, maximizeAll, minimizeAll, splitAll } = usePopup();
     
     return (
-        <div className="dock">
+        <div className="dock z-10">
 
             <button 
                 onClick={
                     () => addPopup({ 
-                        title: "Add new person", 
+                        title: "Add person", 
                         children: <AddPersonComponent />,
                     })
                 }

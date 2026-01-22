@@ -6,6 +6,16 @@ import type { GridState } from "./popup-interfaces";
 export const usePopupStore = create<GridState>((set) => ({
     instances: [],
     layout: [],
+    gridMode: false,
+
+    setInFront: (id) => set((state) => ({
+        instances: state.instances.map((item) => ({
+            ...item,
+            isInFront: item.id ===id
+        }))
+    })),
+
+    setGridMode: (isGridMode) => set({ gridMode: isGridMode }),
 
     addPopup: (newPopup) => set((state) => {
         const id = crypto.randomUUID();

@@ -12,6 +12,9 @@ export const usePopup = () => {
         }))
     );
 
+    const gridMode = usePopupStore((state) => state.gridMode);
+    const setInFront = usePopupStore((state) => state.setInFront);
+    const setGridMode = usePopupStore((state) => state.setGridMode);
     const addPopup = usePopupStore((state) => state.addPopup);
     const closePopup = usePopupStore((state) => state.closePopup);
     const maximizePopup = usePopupStore((state) => state.maximizePopup);
@@ -26,6 +29,9 @@ export const usePopup = () => {
     return {
         instances, 
         layout, 
+        gridMode,
+        setInFront,
+        setGridMode,
         addPopup, 
         closePopup,
         maximizePopup,

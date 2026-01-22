@@ -7,11 +7,15 @@ export interface PopupInstance {
     id: string;
     title: string;
     children: ReactNode;
+    isInFront?: boolean;
 }
 
 export interface GridState {
     instances: PopupInstance[];
     layout: any[];
+    gridMode: boolean;
+    setInFront: (id: string) => void;
+    setGridMode: (isGridMode: boolean) => void;
     addPopup: (newPopup: Omit<PopupInstance, "id">) => void;
     closePopup: (id: string) => void;
     maximizePopup: (id: string) => void;
