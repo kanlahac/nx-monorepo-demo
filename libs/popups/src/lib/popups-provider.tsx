@@ -13,6 +13,7 @@ import "react-resizable/css/styles.css";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export const PopupsProvider = () => {
+    // Every mehtod and data from popup store abstraction used in this script
     const { 
         instances, 
         layout,
@@ -29,6 +30,7 @@ export const PopupsProvider = () => {
     return (
         <div className="relative min-h-full w-full bg-base-200 overflow-x-hidden px-10 py-25">
             
+            {/* Grid mode checkbox */}
             <div className="fixed z-10 opacity-60 top-5 text-center">
                 <h5 className="font-bold">Grid mode</h5>
 
@@ -40,9 +42,11 @@ export const PopupsProvider = () => {
             </div>
 
             {
+                // Check instances content
                 instances.length === 0 
                 ?
                 ( 
+                    // If instances is empty
                     <div className="flex flex-col gap-6 items-center justify-center h-[80vh]">
                         <h1 className="text-4xl font-bold opacity-30">Select a popup</h1>
                         <h2 className="opacity-30">From the dock</h2>
@@ -51,6 +55,7 @@ export const PopupsProvider = () => {
                 )
                 :
                 ( 
+                    // If instances have content print the grid system
                     <ResponsiveGridLayout 
                         layouts={{ lg: layout, md: layout, sm: layout }}
                         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
@@ -60,12 +65,14 @@ export const PopupsProvider = () => {
                         draggableHandle=".handle"
                         className="layout"
                         measureBeforeMount={true}
-                        allowOverlap={gridMode}
+                        // This props change between grid or floating mode
+                        allowOverlap={gridMode} 
                         compactType={!gridMode ? "horizontal" : null}
+
                         onLayoutChange={(current) => {
                             if (current) updateLayout(current);
                         }}
-                        onDragStart={(layout, oldItem, newItem) => {
+                        onDragStart={(layout, oldItem) => {
                             if (oldItem) setInFront(oldItem.i);
                         }}
                     >

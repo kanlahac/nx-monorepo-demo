@@ -6,7 +6,8 @@ import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { FaRegFaceSadTear } from "react-icons/fa6";
 
 export function CheckList() {
-    console.log("Renderizando CheckList...");
+    //Check for re-renders
+    console.log("Rendering CheckList...");
 
     const { list, removePerson, removeAll } = usePersonStore();
 
@@ -16,6 +17,7 @@ export function CheckList() {
                 list.length === 0
                 ?
                 (
+                    // The person list is empty
                     <div className="flex flex-col gap-6 items-center justify-center h-full">
                         <h1 className="text-4xl font-bold opacity-30">No persons</h1>
                         <h2 className="opacity-30">Click in Add person on the dock</h2>
@@ -25,6 +27,7 @@ export function CheckList() {
                 :
                 (
                     <>
+                        {/* Delete all person in the list button */}
                         <button
                             className="btn btn-sm btn-soft btn-error mb-5"
                             onClick={removeAll}
@@ -35,6 +38,7 @@ export function CheckList() {
 
                         <ul className="bg-base-100 rounded-box shadow-md w-full max-w-100">   
                             {
+                                // Print each person
                                 list.map((item, index) => (
                                     <li key={index} className="flex flex-wrap p-3 gap-4 items-center border-1 border-base-content/10">
 
@@ -65,4 +69,5 @@ export function CheckList() {
     );
 }
 
+// Use memo for store the component in memory and avoid re-renders
 export default memo(CheckList);

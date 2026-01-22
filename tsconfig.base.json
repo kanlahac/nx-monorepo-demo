@@ -23,7 +23,7 @@
     "target": "es2022",
     "customConditions": ["@org/source"],
     "paths": {
-      "@libs/popups": ["libs/popups/src/index.ts"],
+      "@libs/popups": ["libs/popups/src/index.ts"], // This path is necesary for Next.js
     }
   }
 }

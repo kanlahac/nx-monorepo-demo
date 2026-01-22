@@ -7,8 +7,10 @@ import { usePersonStore } from "../definitions/stores/person-store";
 import { PersonData } from "../definitions/types/person-interfaces";
 
 function AddPerson() {
+    // Check for re-renders
     console.log("Rendering AddPerson...");
 
+    // hook of react hook form library
     const { register, handleSubmit, reset, formState: { errors } } = useForm<PersonData>();
     const { addPerson } = usePersonStore();
 
@@ -18,6 +20,7 @@ function AddPerson() {
     }
 
     return (
+        // Simple form for get the person data
         <form className="w-full h-full flex items-center justify-center" onSubmit={ handleSubmit(onsubmit) }>
             <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-full max-w-sm border p-10 gap-7">
 
@@ -50,4 +53,5 @@ function AddPerson() {
     );
 }
 
+// Use memo for store the component in memory and avoid re-renders
 export default  memo(AddPerson);

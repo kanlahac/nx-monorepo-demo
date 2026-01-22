@@ -1,104 +1,93 @@
-# New Nx Repository
+# NX monorepo demo
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[English](#english) | [Español](#español)
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+# English
+- [Description](#description)
+- [Installation and Usage](#installation-and-Usage)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Description
 
-## Generate a library
+This project is a technical demonstration designed to showcase advanced capabilities in the architecture, configuration, and management of an **NX Monorepo**.
 
+The solution is divided into two main projects:
+
+-   **Project A (Main-app):** A **Next.js** application that serves as the system's core. It consumes resources from the internal library and implements custom components based on it.
+
+-   **Project B (Popups):** A **React** library providing a dynamic popup window system. These features include advanced functionalities inspired by the Windows environment: dragging, resizing, maximizing, minimizing, and split view.
+
+**Deployment and CI/CD**  
+The continuous integration and deployment (CI/CD) workflow is automated via **GitHub Actions** (`.yml` file), enabling automatic deployment to **GitHub Pages** configured as a Single Page Application (SPA).
+
+## Installation and Usage
+This project was built using **Node.js v24.12.0** and **pnpm v10.27.0**.
+
+1. **Clone the repository**.
 ```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+git clone https://github.com/kanlahac/nx-monorepo-demo.git
+cd nx-monorepo-demo
 ```
-
-## Run tasks
-
-To build the library use:
-
+2. **Install dependencies**.
 ```sh
-npx nx build pkg1
+pnpm install
 ```
-
-To run any task with Nx use:
-
+3. **Run the app locally**.
 ```sh
-npx nx <target> <project-name>
+pnpm nx dev main-app
 ```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
+4. **Run unit tests**.
 ```sh
-npx nx sync
+pnpm nx test main-app
+pnpm nx test popups
 ```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
+4. **Generate production build**.
 ```sh
-npx nx sync:check
+pnpm nx build main-app
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+# Español
+- [Descripción](#descripcion)
+- [Instalación y uso](#instalación-y-uso)
 
-## Nx Cloud
+## Descripción
 
-Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+Este proyecto es una demostración técnica diseñada para exhibir capacidades avanzadas en la arquitectura, configuración y administración de un **monorepositorio con NX**.
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+La solución se divide en dos proyectos principales:
 
-### Set up CI (non-Github Actions CI)
+-   **Proyecto A (Main-app):** Una aplicación desarrollada en **Next.js** que actúa como el núcleo del sistema. Consume los recursos de la librería interna e implementa componentes personalizados basados en ella.
 
-**Note:** This is only required if your CI provider is not GitHub Actions.
+-   **Proyecto B (Popups):** Una librería desarrollada en **React** que provee un sistema de ventanas emergentes dinámicas. Estas cuentan con funcionalidades avanzadas inspiradas en el entorno de Windows: arrastrar, redimensionar (estirar), maximizar, minimizar y dividir (split view).
 
-Use the following command to configure a CI workflow for your workspace:
+**Despliegue y CI/CD**  
+El flujo de integración y despliegue continuo (CI/CD) está automatizado mediante **GitHub Actions** (archivo `.yml`), permitiendo el despliegue automático del proyecto en **GitHub Pages** como una Single Page Application (SPA).
 
+## Instalación y uso
+Este proyecto fue construido con **Node.js v24.12.0** y  **pnpm v10.27.0**.
+
+1. **Clonar el repositorio**.
 ```sh
-npx nx g ci-workflow
+git clone https://github.com/kanlahac/nx-monorepo-demo.git
+cd nx-monorepo-demo
+```
+2. **Instalar dependencias**.
+```sh
+pnpm install
+```
+3. **Correr la app en local**.
+```sh
+pnpm nx dev main-app
+```
+4. **Realizar las pruebas unitarias**.
+```sh
+pnpm nx test main-app
+pnpm nx test popups
+```
+4. **Generar una build**.
+```sh
+pnpm nx build main-app
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-## Install Nx Console
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)

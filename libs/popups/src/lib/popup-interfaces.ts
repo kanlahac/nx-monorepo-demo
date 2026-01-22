@@ -3,17 +3,22 @@
 
 import { ReactNode } from "react";
 
-export interface PopupInstance {
+// Define the data structure of each window
+export interface PopupInstance { 
     id: string;
     title: string;
     children: ReactNode;
     isInFront?: boolean;
 }
 
+// Define the data structure of the popup system
 export interface GridState {
+    // Data
     instances: PopupInstance[];
     layout: any[];
     gridMode: boolean;
+    
+    // Actions
     setInFront: (id: string) => void;
     setGridMode: (isGridMode: boolean) => void;
     addPopup: (newPopup: Omit<PopupInstance, "id">) => void;

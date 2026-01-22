@@ -9,22 +9,26 @@ import { PiSplitHorizontal } from "react-icons/pi";
 import { TbMaximize } from "react-icons/tb";
 import { VscCloseAll } from "react-icons/vsc";
 
+// Loading icon
 const Loading = (
     <div className="w-full h-full flex items-center justify-center">
         <span className="loading loading-bars loading-xl"></span>
     </div>
 );
 
+// Lazy loading for addPerson component
 const AddPersonComponent = dynamic(() => import("../person/addPerson"), {
     loading: () => Loading,
     ssr: false
 });
 
+// Lazy loading for checkList component
 const CheckListComponent = dynamic(() => import("../person/checkList"), {
     loading: () => Loading,
     ssr: false
 });
 
+// Lazy loading for themes component
 const ThemesComponent = dynamic(() => import("../shared/themes"), {
     loading: () => Loading,
     ssr: false
@@ -35,7 +39,8 @@ export function Dock() {
     
     return (
         <div className="dock z-10">
-
+            
+            {/* Create a new AddPerson popup */}
             <button 
                 onClick={
                     () => addPopup({ 
@@ -47,7 +52,8 @@ export function Dock() {
                 <IoPersonAddOutline className="text-xl"/>
                 <span className="dock-label">Add person</span>
             </button>
-
+            
+            {/* Create a new CheckList popup */}
             <button 
                 onClick={
                     () => addPopup({ 
@@ -59,7 +65,8 @@ export function Dock() {
                 <FaRegAddressBook className="text-xl"/>
                 <span className="dock-label">Check List</span>
             </button>
-
+            
+            {/* Create a new Themes popup */}
             <button 
                 onClick={
                     () => addPopup({ 
@@ -71,7 +78,8 @@ export function Dock() {
                 <MdOutlineColorLens className="text-xl"/>
                 <span className="dock-label">Change theme</span>
             </button>
-
+            
+            {/* The dock HTML */}
             <div>
                 <div className="dropdown dropdown-top lg:dropdown-center dropdown-end w-full">
                     <div tabIndex={0} role="button" className="m-1 text-center">

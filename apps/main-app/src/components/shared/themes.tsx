@@ -4,6 +4,7 @@ import { memo } from "react";
 import { useThemeStore } from "../definitions/stores/themes-store";
 
 function Themes() {
+    // List of themes
     const Themes = [
         "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", 
         "synthwave", "retro", "cyberpunk", "valentine", "halloween", 
@@ -20,6 +21,7 @@ function Themes() {
             <div className="flex flex-wrap gap-2 p-2 justify-between">
                 {
                     Themes.map((item, index) => (
+                        // Print one input for theme
                         <input
                             key={index}
                             type="radio"

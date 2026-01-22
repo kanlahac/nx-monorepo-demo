@@ -3,8 +3,10 @@
 import { useShallow } from "zustand/react/shallow";
 import { usePopupStore } from "./popup-store";
 
+// This is an abstraction hook for the popup store, is not necesary but is a good idea
 export const usePopup = () => {
 
+    // Update the data but use the zustand hook useShallow for avoid Re-renders
     const { instances, layout } = usePopupStore(
         useShallow((state) => ({
             instances: state.instances,
@@ -12,6 +14,7 @@ export const usePopup = () => {
         }))
     );
 
+    // Abstraction for every popup store method
     const gridMode = usePopupStore((state) => state.gridMode);
     const setInFront = usePopupStore((state) => state.setInFront);
     const setGridMode = usePopupStore((state) => state.setGridMode);
